@@ -1,4 +1,4 @@
-import React ,{useState} from 'react';
+import React ,{useEffect, useState} from 'react';
 import logo from './logo.svg';
 import Todo from './Todo';
 import {Button,FormControl,Input,InputLabel} from '@material-ui/core';
@@ -8,6 +8,10 @@ function App() {
   
   const [todos,setTodos] = useState([])
   const [input,setInput] = useState([''])
+
+  useEffect(()=> {db.collection("todos").onSnapshot(snapshot=>{setTodos(snapshot.docs.map(doc=>doc.data().todo))
+  })
+   },[input])
 
   const addTodo = (event) =>{
     event.preventDefault();
